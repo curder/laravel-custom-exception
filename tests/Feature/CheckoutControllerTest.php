@@ -1,7 +1,7 @@
 <?php
 
-use App\Models\Ticket;
 use App\Models\User;
+use App\Models\Ticket;
 use Illuminate\Foundation\Testing\LazilyRefreshDatabase;
 
 uses(LazilyRefreshDatabase::class);

@@ -2,12 +2,12 @@
 
 namespace App\Services;
 
+use Throwable;
+use App\Models\User;
+use App\Models\Ticket;
+use App\Models\Purchse;
 use App\Exceptions\NotEnoughCreditsException;
 use App\Exceptions\NotEnoughTicketsException;
-use App\Models\Purchse;
-use App\Models\Ticket;
-use App\Models\User;
-use Throwable;
 
 class CheckoutService
 {
@@ -21,7 +21,7 @@ class CheckoutService
         throw_if($user->credits < $ticket->price, new NotEnoughCreditsException);
 
         // 2. 检查当前票数量是否满足所提交的需求
-        throw_if(!$ticket->isAvailable($amount), new NotEnoughTicketsException);
+        throw_if(! $ticket->isAvailable($amount), new NotEnoughTicketsException);
 
         $user->credits -= $ticket->price;
 

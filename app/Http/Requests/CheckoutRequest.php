@@ -2,12 +2,12 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Contracts\Validation\ValidationRule;
 
 /**
- * @property-read integer $ticket
- * @property-read integer $amount
+ * @property-read int $ticket
+ * @property-read int $amount
  */
 class CheckoutRequest extends FormRequest
 {

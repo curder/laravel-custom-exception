@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Exceptions\NotEnoughCreditsException;
-use App\Exceptions\NotEnoughTicketsException;
-use App\Http\Requests\CheckoutRequest;
+use Throwable;
 use App\Models\Ticket;
 use App\Services\CheckoutService;
+use App\Http\Requests\CheckoutRequest;
+use App\Exceptions\NotEnoughCreditsException;
+use App\Exceptions\NotEnoughTicketsException;
 use Illuminate\Validation\ValidationException;
-use Throwable;
 
 class CheckoutController extends Controller
 {
@@ -29,7 +29,7 @@ class CheckoutController extends Controller
             ]);
         } catch (NotEnoughCreditsException $exception) {
             // abort(401, $exception->message());
-            throw ValidationException::withMessages(['credits' => 'Not enough credits',])->status(401);
+            throw ValidationException::withMessages(['credits' => 'Not enough credits'])->status(401);
         } catch (NotEnoughTicketsException $exception) {
             throw $exception->validationMessage();
         }
