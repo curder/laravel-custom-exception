@@ -13,7 +13,8 @@ it('can not checkout when credits is less then price', function () {
     $this->actingAs($user)
         ->postJson('api/checkout', ['ticket' => $ticket->id, 'amount' => 1])
         ->assertStatus(401)
-        ->assertJsonPath('message', 'Not enough credits');
+        ->assertJsonPath('message', 'Not enough credits')
+        ->assertJsonPath('errors.credits.0', 'Not enough credits');
 });
 
 it('can not checkout when ticket is not available', function () {
@@ -22,8 +23,9 @@ it('can not checkout when ticket is not available', function () {
 
     $this->actingAs($user)
         ->postJson('api/checkout', ['ticket' => $ticket->id, 'amount' => 2])
-        ->assertStatus(404)
-        ->assertJsonPath('message', 'Not enough tickets');
+        ->assertStatus(422)
+        ->assertJsonPath('message', 'Not enough tickets')
+        ->assertJsonPath('errors.ticket.0', 'Not enough tickets');
 });
 
 it('can checkout', function () {
